@@ -14,7 +14,7 @@ type Vlan struct {
 	VRF    string // name of VRF
 }
 
-// Look through an array of VLANs and find a VLAN, return nil if not found
+// Look through an array of VLANs and find first VLAN with an ID, return nil if not found
 func FindVlan(ID int, AllVlans []Vlan) *Vlan {
 	if AllVlans == nil {
 		return nil
