@@ -9,9 +9,9 @@ import (
 
 // This func parses a string with the syntax #-# and returns a slice with the numbers in it
 // TODO: implement check if Regexp does not parse
-func GetRangefromString(line string) (low, high int, err error) {
+func GetRangefromString(input string) (low, high int, err error) {
 	r := regexp.MustCompile("(\\d*)-(\\d*)")
-	parsed := r.FindStringSubmatch(line)
+	parsed := r.FindStringSubmatch(input)
 	low, _ = strconv.Atoi(parsed[1])
 	high, _ = strconv.Atoi(parsed[2])
 	if low > high {
