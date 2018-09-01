@@ -1,14 +1,38 @@
 # ciscoutils
-Various code fragments to make the life easier as a Cisco developer in Go. The idea is here to collect small snippets of Cisco related code that is used to work with Cisco devices in many ways.
+Various code fragments to make the life easier as a Cisco stack developer in Go. The idea is here to collect small snippets of Cisco related code that is used to work with Cisco devices in many ways.
 
 There are no external dependencies in this code. Only Go builtin libraries.
 
+To use this library just download it like this:
+```
+go get github.com/helgeolav/ciscoutils
+```
+
+And then add it into your program
+```
+package main
+
+import (
+ "github.com/helgeolav/ciscoutils"
+ "fmt"
+)
+
+func main() {
+  vlans := ciscoutils.ReadVlanCsv("vlan_test.csv", ';')
+  fmt.Println(vlans)
+}
+```
+
 ## Functions
 
-The list below are the functions that are provided for you. There are some others, they are mostly used for testing av development.
-### func GetRangefromString(input string) (low, high int, err error)
+The list below are the functions that are provided for you. There are some others, they are mostly used for testing and development.
+### func GetRangeFromString(input string) (low, high int, err error)
 
 The inputstring is a numbered list "from-to", and in return you get either an error or the two numbers in the list.
+```
+low, high := GetRangefromString("3-10")
+```
+Will give you low = 3 and high = 10.
 
 ### func GetVLANString(input string) (vlans []int, err error)
 

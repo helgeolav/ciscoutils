@@ -9,7 +9,7 @@ import (
 
 // This func parses a string with the syntax #-# and returns a slice with the numbers in it
 // TODO: implement check if Regexp does not parse
-func GetRangefromString(input string) (low, high int, err error) {
+func GetRangeFromString(input string) (low, high int, err error) {
 	r := regexp.MustCompile("(\\d*)-(\\d*)")
 	parsed := r.FindStringSubmatch(input)
 	low, _ = strconv.Atoi(parsed[1])
@@ -43,7 +43,7 @@ func GetVLANString(input string) (vlans []int, err error) {
 	// loop through each value
 	for _, each := range s {
 		if strings.Contains(each, "-") {
-			low, high, err := GetRangefromString(each)
+			low, high, err := GetRangeFromString(each)
 			if err != nil {
 				return result, err
 			}

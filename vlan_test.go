@@ -60,6 +60,6 @@ func TestReadVlanCsv(t *testing.T) {
 		t.Error(err)
 	}
 	if len(vlans) != 3 {
-		t.Error("wrong number of list read from file")
+		t.Error("wrong number of vlans read from file")
 	}
 }

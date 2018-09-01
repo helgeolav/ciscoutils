@@ -6,7 +6,7 @@ import (
 
 func TestGetRangefromString(t *testing.T) {
 	// first test - a valid string
-	low, high, error := GetRangefromString("4-10")
+	low, high, error := GetRangeFromString("4-10")
 	if error != nil {
 		t.Error("got nil")
 		t.Fail()
@@ -18,7 +18,7 @@ func TestGetRangefromString(t *testing.T) {
 		t.Error("did not get 10")
 	}
 	// second test - an invalid range
-	low, high, error = GetRangefromString("10-4")
+	low, high, error = GetRangeFromString("10-4")
 	if error == nil {
 		t.Error("did not get nil on invalid range")
 	}
