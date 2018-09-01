@@ -49,13 +49,14 @@ func GetVLANString(input string) (vlans []int, err error) {
 			}
 			num := high - low
 			for count := 0; count <= num; count++ {
-				result = append(result, low+count)
+				result = append(result, low + count)
 			}
 		} else {
 			i, err := strconv.Atoi(each)
-			if err == nil {
-				result = append(result, i)
+			if err != nil {
+				return result, err
 			}
+			result = append(result, i)
 		}
 	}
 	return result, nil
