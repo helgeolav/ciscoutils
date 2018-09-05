@@ -57,7 +57,7 @@ func MakeTestVlans() []Vlan {
 }
 
 // This func reads a CSV file in the format "vlan,name,tenant,vrf"
-func ReadVlanCsv(inputFile string, separator rune) (vlans []Vlan, err error) {
+func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan, err error) {
 	var AllVlans []Vlan
 	csvFile, err := os.Open(inputFile)
 	if err != nil {
@@ -72,6 +72,7 @@ func ReadVlanCsv(inputFile string, separator rune) (vlans []Vlan, err error) {
 		return nil, err
 	}
 	var oneRecord Vlan
+	oneRecord.Domain = domain
 	for _, each := range csvData {
 		oneRecord.ID, _ = strconv.Atoi(each[0])
 		oneRecord.Name = each[1]
