@@ -12,6 +12,25 @@ type Vlan struct {
 	Name   string // name of VLAN
 	Tenant string // tenant name
 	VRF    string // name of VRF
+	Domain string // physical domain
+}
+
+// return a new Vlan with optional default values
+func NewVlan() *Vlan {
+	return new(Vlan)
+}
+
+// Look through an array of Vlans to find a VLAN inside a domain
+func FindVlanDomain(ID int, AllVlans *[]Vlan, domain string) *Vlan {
+	if AllVlans == nil {
+		return nil
+	}
+	for _, each := range *AllVlans {
+		if each.ID == ID && each.Domain == domain {
+			return &each
+		}
+	}
+	return nil
 }
 
 // Look through an array of VLANs and find first VLAN with an ID, return nil if not found
@@ -29,8 +48,8 @@ func FindVlan(ID int, AllVlans []Vlan) *Vlan {
 
 // this func just returns a list of VLANs that is used for testing code
 func MakeTestVlans() []Vlan {
-	vl2 := Vlan{2, "VLAN-2-SOMETHING", "TEST-TENANT", "VRF1"}
-	vl444 := Vlan{4, "STRANGE-VLAN", "TEST-TENANT", "VRF1"}
+	vl2 := Vlan{2, "VLAN-2-SOMETHING", "TEST-TENANT", "VRF1", ""}
+	vl444 := Vlan{4, "STRANGE-VLAN", "TEST-TENANT", "VRF1", ""}
 	var AllVlans []Vlan
 	AllVlans = append(AllVlans, vl2)
 	AllVlans = append(AllVlans, vl444)
