@@ -55,7 +55,7 @@ func TestIntArrayEquals(t *testing.T) {
 }
 
 func TestReadVlanCsv(t *testing.T) {
-	vlans, err := ReadVlanCsv("vlan_test.csv", ';')
+	vlans, err := ReadVlanCsv("vlan_test.csv", ';', "mydomain")
 	if err != nil {
 		t.Error(err)
 	}

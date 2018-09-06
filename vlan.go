@@ -13,6 +13,8 @@ type Vlan struct {
 	Tenant string // tenant name
 	VRF    string // name of VRF
 	Domain string // physical domain
+	App    string // Application associated with Vlan
+	EPG    string // EPG associated with Vlan
 }
 
 // return a new Vlan with optional default values
@@ -48,8 +50,8 @@ func FindVlan(ID int, AllVlans []Vlan) *Vlan {
 
 // this func just returns a list of VLANs that is used for testing code
 func MakeTestVlans() []Vlan {
-	vl2 := Vlan{2, "VLAN-2-SOMETHING", "TEST-TENANT", "VRF1", ""}
-	vl444 := Vlan{4, "STRANGE-VLAN", "TEST-TENANT", "VRF1", ""}
+	vl2 := Vlan{2, "VLAN-2-SOMETHING", "TEST-TENANT", "VRF1", "", "", ""}
+	vl444 := Vlan{4, "STRANGE-VLAN", "TEST-TENANT", "VRF1", "", "", ""}
 	var AllVlans []Vlan
 	AllVlans = append(AllVlans, vl2)
 	AllVlans = append(AllVlans, vl444)
