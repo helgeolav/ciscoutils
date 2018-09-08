@@ -1,6 +1,7 @@
 package ciscoutils
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -62,4 +63,26 @@ func TestReadVlanCsv(t *testing.T) {
 	if len(vlans) != 3 {
 		t.Error("wrong number of vlans read from file")
 	}
+	// check VLAN 1
+	vlan := FindVlan(1, vlans)
+	if vlan == nil {
+		t.Error("VLAN 1 not found in CSV")
+	} else {
+		if vlan.EPG != "MyEPG" {
+			t.Error("VLAN 1 missing or incorrect EPG")
+		}
+	}
+	// check VLAN 3
+	vlan = FindVlan(10, vlans)
+	if vlan == nil {
+		t.Error("VLAN 10 not found in CSV")
+	} else {
+		if vlan.EPG != "" {
+			t.Error("VLAN 10 got EPG")
+		}
+		if vlan.Domain != "mydomain" {
+			t.Error("VLAN 10 missing domain")
+		}
+	}
+	fmt.Println(vlans)
 }

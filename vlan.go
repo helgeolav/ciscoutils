@@ -78,11 +78,13 @@ func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan,
 	for _, each := range csvData {
 		oneRecord.ID, _ = strconv.Atoi(each[0])
 		oneRecord.Name = each[1]
+		// check tenant
 		if len(each) > 2 {
 			oneRecord.Tenant = each[2]
 		} else {
 			oneRecord.Tenant = ""
 		}
+		// check for VRF
 		if len(each) > 3 {
 			if each[3] == "" {
 				oneRecord.VRF = "VRF1"
@@ -92,6 +94,19 @@ func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan,
 		} else {
 			oneRecord.VRF = ""
 		}
+		// check for application
+		if len(each) > 4 {
+			oneRecord.App = each[4]
+		} else {
+			oneRecord.App = ""
+		}
+		// check for EPG
+		if len(each) > 5 {
+			oneRecord.EPG = each[5]
+		} else {
+			oneRecord.EPG = ""
+		}
+		// sanity check
 		if oneRecord.ID > 0 && oneRecord.ID < 4095 {
 			AllVlans = append(AllVlans, oneRecord)
 		}
