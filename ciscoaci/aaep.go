@@ -17,9 +17,19 @@ func PutEncapOnAEP(Client *aci.Client, vlan *ciscoutils.Vlan, aep string) (err e
 	if vlan == nil {
 		return
 	}
-	EPG := makeEPGName(vlan.ID)
+	// define APP
+	APP := vlan.App
+	if APP == "" {
+		APP = "L2"
+	}
+	// define EPG
+	EPG := vlan.EPG
+	if EPG == "" {
+		EPG = makeEPGName(vlan.ID)
+	}
+
 	encap := aci.GetVLANEncap(vlan.ID)
-	return Client.AttachableAccessEntityProfileEncapAdd(aep, vlan.Tenant, "L2", EPG, encap)
+	return Client.AttachableAccessEntityProfileEncapAdd(aep, vlan.Tenant, APP, EPG, encap)
 }
 
 // deletes an encap from an AEP when found in the in the Vlan array

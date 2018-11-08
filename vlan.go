@@ -58,7 +58,7 @@ func MakeTestVlans() []Vlan {
 	return AllVlans
 }
 
-// This func reads a CSV file in the format "vlan,name,tenant,vrf"
+// This func reads a CSV file in the format "vlan,name,tenant,vrf,application,EPG"
 func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan, err error) {
 	var AllVlans []Vlan
 	csvFile, err := os.Open(inputFile)
