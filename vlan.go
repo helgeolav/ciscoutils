@@ -113,3 +113,38 @@ func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan,
 	}
 	return AllVlans, nil
 }
+
+// Return the name of the application
+func GetAppName(vlan *Vlan, defaultname string) string {
+	// return the default name if no vlan or no App name
+	if vlan==nil || vlan.App == "" {
+		return defaultname
+	}
+	return vlan.App
+}
+
+// Return the name of the EPG
+func GetEPGName(vlan *Vlan) string {
+	// return no name if no VLAN
+	if vlan==nil {
+		return ""
+	}
+	// return default name if no name
+	if vlan.EPG=="" {
+		return "VL" + strconv.Itoa(vlan.ID) + "-L2"
+	}
+	return vlan.EPG
+}
+
+// Return the name of the VRF
+func GetVRFName(vlan *Vlan) string {
+	// return no name if no VLAN
+	if vlan==nil {
+		return ""
+	}
+	// return default name if none specifified
+	if vlan.VRF=="" {
+		return "VRF1"
+	}
+	return vlan.VRF
+}

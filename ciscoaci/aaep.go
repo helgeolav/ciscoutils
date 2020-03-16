@@ -3,13 +3,8 @@ package ciscoaci
 import (
 	"github.com/helgeolav/acigo/aci"
 	"github.com/helgeolav/ciscoutils"
-	"strconv"
 )
 
-// internal function to make name to use for the EPG based on a VLAN ID
-func makeEPGName(ID int) string {
-	return "VL" + strconv.Itoa(ID) + "-L2"
-}
 
 // Adds an encap to an AEP from the Vlan array
 func PutEncapOnAEP(Client *aci.Client, vlan *ciscoutils.Vlan, aep string) (err error) {
@@ -25,7 +20,7 @@ func PutEncapOnAEP(Client *aci.Client, vlan *ciscoutils.Vlan, aep string) (err e
 	// define EPG
 	EPG := vlan.EPG
 	if EPG == "" {
-		EPG = makeEPGName(vlan.ID)
+		EPG = MakeEPGName(vlan.ID)
 	}
 
 	encap := aci.GetVLANEncap(vlan.ID)
@@ -38,7 +33,7 @@ func DeleteEncapOnAEP(Client *aci.Client, vlan *ciscoutils.Vlan, aep string) (er
 	if vlan == nil {
 		return
 	}
-	EPG := makeEPGName(vlan.ID)
+	EPG := MakeEPGName(vlan.ID)
 	encap := aci.GetVLANEncap(vlan.ID)
 	return Client.AttachableAccessEntityProfileEncapDel(aep, vlan.Tenant, "L2", EPG, encap)
 }
