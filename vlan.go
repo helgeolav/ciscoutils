@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-// this is a struct that you can use to keep some information about a VLAN.
+// Vlan is a struct that you can use to keep some information about a VLAN.
 type Vlan struct {
 	ID     int    // VLAN ID
 	Name   string // name of VLAN
@@ -117,7 +117,7 @@ func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan,
 // Return the name of the application
 func GetAppName(vlan *Vlan, defaultname string) string {
 	// return the default name if no vlan or no App name
-	if vlan==nil || vlan.App == "" {
+	if vlan == nil || vlan.App == "" {
 		return defaultname
 	}
 	return vlan.App
@@ -126,11 +126,11 @@ func GetAppName(vlan *Vlan, defaultname string) string {
 // Return the name of the EPG
 func GetEPGName(vlan *Vlan) string {
 	// return no name if no VLAN
-	if vlan==nil {
+	if vlan == nil {
 		return ""
 	}
 	// return default name if no name
-	if vlan.EPG=="" {
+	if vlan.EPG == "" {
 		return "VL" + strconv.Itoa(vlan.ID) + "-L2"
 	}
 	return vlan.EPG
@@ -139,11 +139,11 @@ func GetEPGName(vlan *Vlan) string {
 // Return the name of the VRF
 func GetVRFName(vlan *Vlan) string {
 	// return no name if no VLAN
-	if vlan==nil {
+	if vlan == nil {
 		return ""
 	}
 	// return default name if none specifified
-	if vlan.VRF=="" {
+	if vlan.VRF == "" {
 		return "VRF1"
 	}
 	return vlan.VRF

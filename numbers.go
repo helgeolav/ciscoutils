@@ -7,11 +7,14 @@ import (
 	"strings"
 )
 
-// This func parses a string with the syntax #-# and returns a slice with the numbers in it
+// GetRangeFromString parses a string with the syntax #-# and returns the two numbers.
 // TODO: implement check if Regexp does not parse
 func GetRangeFromString(input string) (low, high int, err error) {
-	r := regexp.MustCompile("(\\d*)-(\\d*)")
+	r := regexp.MustCompile("(\\d+)-(\\d+)")
 	parsed := r.FindStringSubmatch(input)
+	if parsed == nil {
+		return 0, 0, errors.New("GetRangeFromString: input not in #-# syntax")
+	}
 	low, _ = strconv.Atoi(parsed[1])
 	high, _ = strconv.Atoi(parsed[2])
 	if low > high {
@@ -34,7 +37,7 @@ func IntArrayEquals(a []int, b []int) bool {
 	return true
 }
 
-// parse a line of comma-separated VLAN's in Cisco format
+// GetVLANString parses a line of comma-separated VLAN's in Cisco format
 // 1,10,12-15,20
 // TODO: add support for whitespace in string
 func GetVLANString(input string) (vlans []int, err error) {
@@ -49,7 +52,7 @@ func GetVLANString(input string) (vlans []int, err error) {
 			}
 			num := high - low
 			for count := 0; count <= num; count++ {
-				result = append(result, low + count)
+				result = append(result, low+count)
 			}
 		} else {
 			i, err := strconv.Atoi(each)

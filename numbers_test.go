@@ -18,9 +18,14 @@ func TestGetRangefromString(t *testing.T) {
 		t.Error("did not get 10")
 	}
 	// second test - an invalid range
-	low, high, error = GetRangeFromString("10-4")
+	_, _, error = GetRangeFromString("10-4")
 	if error == nil {
 		t.Error("did not get nil on invalid range")
+	}
+	// 3rd test - send invalid string in
+	_, _, error = GetRangeFromString("no-number")
+	if error == nil {
+		t.Error("passed on invalid string")
 	}
 }
 
