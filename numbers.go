@@ -8,7 +8,6 @@ import (
 )
 
 // GetRangeFromString parses a string with the syntax #-# and returns the two numbers.
-// TODO: implement check if Regexp does not parse
 func GetRangeFromString(input string) (low, high int, err error) {
 	r := regexp.MustCompile("(\\d+)-(\\d+)")
 	parsed := r.FindStringSubmatch(input)
@@ -23,7 +22,7 @@ func GetRangeFromString(input string) (low, high int, err error) {
 	return low, high, nil
 }
 
-// support func to verify arrays
+// IntArrayEquals support func to verify arrays
 // source: https://stackoverflow.com/questions/18561219/comparing-arrays-in-go-language
 func IntArrayEquals(a []int, b []int) bool {
 	if len(a) != len(b) {

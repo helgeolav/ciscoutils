@@ -17,12 +17,12 @@ type Vlan struct {
 	EPG    string // EPG associated with Vlan
 }
 
-// return a new Vlan with optional default values
+// NewVlan return a new Vlan with optional default values
 func NewVlan() *Vlan {
 	return new(Vlan)
 }
 
-// Look through an array of Vlans to find a VLAN inside a domain
+// FindVlanDomain Look through an array of Vlans to find a VLAN inside a domain
 func FindVlanDomain(ID int, AllVlans *[]Vlan, domain string) *Vlan {
 	if AllVlans == nil {
 		return nil
@@ -35,7 +35,7 @@ func FindVlanDomain(ID int, AllVlans *[]Vlan, domain string) *Vlan {
 	return nil
 }
 
-// Look through an array of VLANs and find first VLAN with an ID, return nil if not found
+// FindVlan Look through an array of VLANs and find first VLAN with an ID, return nil if not found
 func FindVlan(ID int, AllVlans []Vlan) *Vlan {
 	if AllVlans == nil {
 		return nil
@@ -48,7 +48,7 @@ func FindVlan(ID int, AllVlans []Vlan) *Vlan {
 	return nil
 }
 
-// this func just returns a list of VLANs that is used for testing code
+// MakeTestVlans this func just returns a list of VLANs that is used for testing code
 func MakeTestVlans() []Vlan {
 	vl2 := Vlan{2, "VLAN-2-SOMETHING", "TEST-TENANT", "VRF1", "", "", ""}
 	vl444 := Vlan{4, "STRANGE-VLAN", "TEST-TENANT", "VRF1", "", "", ""}
@@ -58,7 +58,7 @@ func MakeTestVlans() []Vlan {
 	return AllVlans
 }
 
-// This func reads a CSV file in the format "vlan,name,tenant,vrf,application,EPG"
+// ReadVlanCsv This func reads a CSV file in the format "vlan,name,tenant,vrf,application,EPG"
 func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan, err error) {
 	var AllVlans []Vlan
 	csvFile, err := os.Open(inputFile)
@@ -114,7 +114,7 @@ func ReadVlanCsv(inputFile string, separator rune, domain string) (vlans []Vlan,
 	return AllVlans, nil
 }
 
-// Return the name of the application
+// GetAppName Return the name of the application
 func GetAppName(vlan *Vlan, defaultname string) string {
 	// return the default name if no vlan or no App name
 	if vlan == nil || vlan.App == "" {
@@ -123,7 +123,7 @@ func GetAppName(vlan *Vlan, defaultname string) string {
 	return vlan.App
 }
 
-// Return the name of the EPG
+// GetEPGName Return the name of the EPG
 func GetEPGName(vlan *Vlan) string {
 	// return no name if no VLAN
 	if vlan == nil {
@@ -136,13 +136,13 @@ func GetEPGName(vlan *Vlan) string {
 	return vlan.EPG
 }
 
-// Return the name of the VRF
+// GetVRFName Return the name of the VRF
 func GetVRFName(vlan *Vlan) string {
 	// return no name if no VLAN
 	if vlan == nil {
 		return ""
 	}
-	// return default name if none specifified
+	// return default name if none specified
 	if vlan.VRF == "" {
 		return "VRF1"
 	}
