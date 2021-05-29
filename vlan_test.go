@@ -1,7 +1,6 @@
 package ciscoutils
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -84,5 +83,5 @@ func TestReadVlanCsv(t *testing.T) {
 			t.Error("VLAN 10 missing domain")
 		}
 	}
-	fmt.Println(vlans)
+	// fmt.Println(vlans)
 }
